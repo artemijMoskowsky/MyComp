@@ -7,7 +7,20 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
 from .forms import OrderForm
+from dotenv import load_dotenv
+import os
 import json
+import requests
+
+load_dotenv()
+
+def send_to_telegram(message):
+    token = os.getenv("tg_token")
+    chat_id = "5328331748"
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = {"chat_id": chat_id, "text": message}
+
+    response = requests.post(url, data=payload)
 
 # Create your views here.
 def render_catalog(request: HttpRequest):
@@ -111,7 +124,7 @@ def render_placing_order(request: HttpRequest):
         if form.is_valid():
             for basket in baskets:
                 order_log = OrderLog.objects.create(product=basket.product, count=basket.count)
-                Order.objects.create(
+                order = Order.objects.create(
                     log = order_log,
                     user = request.user,
                     fullname = form.cleaned_data["fullname"],
@@ -121,6 +134,7 @@ def render_placing_order(request: HttpRequest):
                     city = form.cleaned_data["city"],
                     postoffice = form.cleaned_data["postoffice"]
                 )
+                send_to_telegram(order)
                 basket.delete()
 
             return redirect("basket")

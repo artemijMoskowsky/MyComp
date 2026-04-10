@@ -64,6 +64,8 @@ class Order(models.Model):
     postoffice = models.CharField(max_length=60)
     ordered_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"Замовлення {self.id}\nТовар: {self.log.product.name}\nЦіна: {self.log.product.price * self.log.count}₴\nЗамовник: {self.fullname}\nТелефон: {self.phone_number}\nДоставка: {self.get_type_of_delivery_display()}\nСпосіб оплати: {self.get_type_of_payment_display()}\nМісто: {self.city}\nПоштовий відділ: {self.postoffice}\nБуло замовлено: {self.ordered_at}"
 
 class Basket(models.Model):
     id = models.AutoField(primary_key=True)

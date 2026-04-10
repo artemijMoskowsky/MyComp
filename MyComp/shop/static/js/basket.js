@@ -62,7 +62,7 @@ function deleteProduct(element, id) {
     for (let i = 0; i < productsArray.length; i++) {
         if (productsArray[i].basketId == id) {
             let xhr = new XMLHttpRequest();
-            xhr.open('post', `${window.location.href}delete/${id}`);
+            xhr.open('post', `${window.location.href}delete/${id}/`);
             xhr.onload = () => {
                 console.log(xhr.status)
                 if (xhr.status == 200 && xhr.readyState == 4){
