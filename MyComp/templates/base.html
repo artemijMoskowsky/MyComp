@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href={% static "css/base.css" %}>
+        {% block head %}{% endblock head %}
+        <script defer src={% static "js/base.js" %}></script>
+    </head>
+    <body>
+        <header>
+            <div class="logo"><a href={% url "main" %}>My<span>Comp</span></a></div>
+            {% comment %} <div class="navigation"> {% endcomment %}
+            <nav class="navigation">
+                <a id="main" href={% url "main" %}>Головна</a>
+                <a id="catalog" href={% url "catalog" %}>Каталог</a>
+                <a id="contacts" href={% url "contacts" %}>Контакти</a>
+            </nav>
+            <nav>
+                <a id="basket" href={% url "basket" %}><img src={% static "img/basket.png" %} alt=""></a>
+                <div class="account-div">
+                    {% if user.is_authenticated %}
+                        <a href="">{{ user.username }}</a>
+                    {% else %}
+                        <a href={% url "registration" %}>Зареєструватись</a>
+                    {% endif %}
+                    <a href={% url "registration" %}><img src={% static "img/account.png" %} alt=""></a>
+                </div>
+            </nav>
+            {% comment %} </div> {% endcomment %}
+        </header>
+        {% block body %}{% endblock body %}
+        <p class="rights">© 2026 MyComp. Усі права захищені.</p>
+    </body>
+</html>

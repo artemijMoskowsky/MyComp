@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <title>MyComp - Логін</title>
+    <link rel="stylesheet" href={% static "css/log_reg.css" %}>
+    <meta name="selected" content="account">
+{% endblock head %}
+
+{% block body %}
+    <div class="content">
+        <form method="post">
+            {% csrf_token %}
+            <h1>Авторизація</h1>
+            {% for field in form %}
+                <div class="field">
+                    {{ field.label_tag }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button class="submit" type="submit">Підтвердити</button>
+            <p>Якщо у вас ще немає аккаунту<br>натисніть <a href={% url "registration" %}>тут</a></p>
+        </form>
+    </div>
+{% endblock body %}

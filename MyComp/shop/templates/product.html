@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+  <title>MyComp - {{ product.name }}</title>
+  <link rel="stylesheet" href={% static "css/product.css" %} />
+  <script defer src={% static "js/product.js" %}></script>
+  <meta name="selected" content="catalog">
+{% endblock head %}
+
+{% block body %}
+  <main class="container">
+    <div class="product-wrap">
+      <!-- Gallery -->
+      <div>
+        <div class="gallery">
+          <img id="mainImage" src="" alt={{ product.name }} class="main-img">
+          <div class="thumbs" id="thumbs">
+            {% for image in product.images.all %}
+              <img class="thumb" src={{ image.image.url }} data-full={{ image.image.url }}>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" style="margin-top:16px">
+          <div class="tab-buttons" role="tablist">
+            <button class="tab-btn active" data-tab="desc">Опис</button>
+            <button class="tab-btn" data-tab="specs">Характеристики</button>
+            <button class="tab-btn" data-tab="reviews">Відгуки (3)</button>
+          </div>
+          <div class="tab-body" id="tabBody">
+            <div data-panel="desc">
+              <p>{{ product.description }}</p>
+            </div>
+
+            <div data-panel="specs" style="display:none">
+              <table style="width:100%;color:var(--muted);font-size:14px;border-collapse:collapse">
+                {% for key, value in product.attributes.items %}
+                  <td style="padding:8px 6px;border-top:1px solid #151515">{{ key }}</td>
+                    
+                    {% for key, val in value.items %}
+                      <tr><td style="padding:8px 6px;border-top:1px solid #151515">{{ key }}</td><td style="padding:8px 6px;border-top:1px solid #151515">{{ val }}</td></tr>
+                    {% endfor %}
+                {% endfor %}
+              </table>
+            </div>
+
+            <div data-panel="reviews" style="display:none">
+              {% comment %} <div style="color:var(--muted);margin-bottom:8px">Иван — ★★★★☆<div style="color:#ccc;margin-top:6px">Отличный ноут для игр и работы. Немного греется под нагрузкой.</div></div>
+              <div style="color:var(--muted);margin-bottom:8px">Ольга — ★★★★★<div style="color:#ccc;margin-top:6px">Быстрая доставка, товар как в описании.</div></div>
+              <div style="color:var(--muted);margin-bottom:8px">Максим — ★★★★☆<div style="color:#ccc;margin-top:6px">Хорошее соотношение цена/качество.</div></div> {% endcomment %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meta / Buy -->
+      <aside class="meta">
+        <div class="title">{{ product.name }}</div>
+        <div class="sku">Артикул: {{ product.id }}</div>
+        <div class="price">{{ product.price }}₴</div>
+        <div class="specs-list">
+          {% for tag in product.tags.all %}
+            <div class="chip">{{ tag.name }}</div>
+          {% endfor %}
+          {% comment %} <div class="chip">16 GB RAM</div>
+          <div class="chip">512 GB SSD</div>
+          <div class="chip">RTX 4060</div>
+          <div class="chip">15.6" 144Hz</div> {% endcomment %}
+        </div>
+        <div class="stock">В наявності: <strong style="color:#9cff9c">{{ product.count }} шт.</strong></div>
+
+        <div class="actions">
+          <button class="btn-primary" id="addCart" value={% url "add_basket" product.id %}>Додати до кошику</button>
+        </div>
+
+        <div style="margin-top:16px;color:var(--muted);font-size:13px">
+          <div>Доставка: 1–3 дні</div>
+          <div style="margin-top:6px">Гарантія: 12 міс.</div>
+        </div>
+
+        <!-- Related -->
+        <div class="related">
+          <h4 style="margin:14px 0 8px;color:var(--muted)">Схожі товари</h4>
+          <div class="related-grid">
+            {% for sim in similarities %}
+              <div value={% url "product" sim.id %} class="card"><img src={{ sim.images.first.image.url }} alt=""><h4>{{ sim.name }}</h4><div class="price">{{ sim.price }}₴</div></div>
+            {% endfor %}
+            {% comment %} <div class="card"><img src="https://via.placeholder.com/200x110" alt=""><h4>Монитор PixelView</h4><div class="price">₴8 499</div></div>
+            <div class="card"><img src="https://via.placeholder.com/200x110" alt=""><h4>Мышь HyperClick</h4><div class="price">₴1 299</div></div>
+            <div class="card"><img src="https://via.placeholder.com/200x110" alt=""><h4>Наушники AirWave</h4><div class="price">₴3 799</div></div> {% endcomment %}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+{% endblock body %}

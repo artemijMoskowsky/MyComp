@@ -1,0 +1,240 @@
+:root{
+  --bg:#0a0a0a;
+  --card:#0d0d0d;
+  --muted:#bdbdbd;
+  --red:red;
+  --blue:#1f6feb;
+  --accent-grad: linear-gradient(90deg,#e23b3b,#1f6feb);
+}
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body{
+  font-family: Inter, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: #fff;
+  line-height: 1.4;
+}
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  border-bottom: 1px solid #111;
+  background: linear-gradient(90deg,#000,#031026);
+}
+.logo{
+  font-weight: 700;
+  font-size: 20px;
+}
+.logo span{
+  color: var(--red);
+}
+.nav a{
+  color: #bbb;
+  margin: 0 12px;
+  text-decoration: none;
+}
+.nav a:hover{
+  color: var(--blue);
+}
+.container{
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+.product-wrap{
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 32px;
+  align-items: start;
+}
+/* gallery */
+.gallery{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #151515;
+}
+.main-img{
+  width: 100%;
+  height: 420px;
+  object-fit: contain;
+  border-radius: 8px;
+  display: block;
+}
+.thumbs{
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.thumb{
+  width: 84px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.8;
+  border: 1px solid #222;
+}
+.thumb.active{
+  outline: 2px solid var(--blue);
+  opacity: 1;
+}
+/* right column */
+.meta{
+  background: var(--card);
+  padding: 22px;
+  border-radius: 12px;
+  border: 1px solid #141414;
+}
+.title{
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.sku{
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.price{
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+.specs-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0;
+}
+.chip{
+  background: #0b0b0b;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #222;
+  color: var(--muted);
+  font-size: 13px;
+}
+.actions{
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+.btn-primary{
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent-grad);
+  color: #000;
+  font-weight:7 00;
+}
+.btn-outline{
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #222;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+.stock{
+  margin-top: 10px;
+  font-size: 13px;
+  color :var(--muted);
+}
+/* tabs */
+.tabs{
+  margin-top: 30px;
+  background: linear-gradient(90deg,#000,#071027);
+  padding: 14px;
+  border-radius: 10px;
+  width: 600px;
+  border: 1px solid #121212;
+}
+.tab-buttons{
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #171717;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+.tab-btn{
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  padding: 8px 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.tab-btn.active{
+  color: #fff;
+  border-bottom: 2px solid var(--blue);
+}
+.tab-body{
+  color: #cfcfcf;
+  font-size: 15px;
+}
+/* related */
+.related{
+  margin-top: 28px;
+}
+.related-grid{
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.card{
+  background: #0b0b0b;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #171717;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.3s;
+}
+.card img{
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.card h4{
+  font-size: 15px;
+  margin: 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 100%; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 50px;
+}
+.card .price{
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 700;
+  width: 100%;
+}
+.card:hover {
+  border-color: #1e90ff;
+  transform: translateY(-5px);
+}
+
+/* responsive */
+@media (max-width: 980px){
+  .product-wrap{
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .main-img{
+    height: 320px;
+  }
+}

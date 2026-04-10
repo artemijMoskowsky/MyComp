@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <title>MyComp - Каталог</title>
+    <link rel="stylesheet" href={% static "css/catalog.css" %}>
+    <script defer src={% static "js/catalog.js" %}></script>
+    <meta name="selected" content="catalog">
+{% endblock head %}
+
+{% block body %}
+    <section class="catalog">
+    <h1>Каталог техніки</h1>
+    <div class="filters">
+      <select id="category-filter">
+        <option value="all">Всі категорії</option>
+        <option value="laptop">Ноутбуки</option>
+        <option value="monitor">Монітори</option>
+        <option value="component">Комплектуючі</option>
+        <option value="periphery">Периферія</option>
+      </select>
+      <select id="price-filter">
+        <option value="popular">Спочатку популярні</option>
+        <option value="cheap">Спочатку дешеві</option>
+        <option value="expensive">Спочатку дорогі</option>
+      </select>
+      <input id="search" type="text" placeholder="Пошук..." />
+    </div>
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product" value={% url "product" product.id %}>
+                <img src={{ product.images.first.image.url }} alt="Ноутбук" />
+                <h3>{{ product.name }}</h3>
+                <p>
+                  {{ product.price }} грн.
+                  {% comment %} {% for key, value in product.attributes.items %}
+                      {{ value }}
+                  {% endfor %} {% endcomment %}
+                </p>
+                <button>Купити</button>
+            </div>
+        {% endfor %}
+
+    {% comment %} <div class="product-grid">
+      <div class="product">
+        <img src="https://via.placeholder.com/250x180" alt="Ноутбук" />
+        <h3>Игровой ноутбук Titan X</h3>
+        <p>Intel i7, RTX 4070, 16 ГБ ОЗУ</p>
+        <button>Купить</button>
+      </div>
+
+      <div class="product">
+        <img src="https://via.placeholder.com/250x180" alt="Монитор" />
+        <h3>Монитор UltraVision 4K</h3>
+        <p>Безрамочный дизайн, 144 Гц</p>
+        <button>Купить</button>
+      </div>
+
+      <div class="product">
+        <img src="https://via.placeholder.com/250x180" alt="Клавиатура" />
+        <h3>Клавиатура FireStrike</h3>
+        <p>Механика, RGB-подсветка</p>
+        <button>Купить</button>
+      </div>
+
+      <div class="product">
+        <img src="https://via.placeholder.com/250x180" alt="Мышь" />
+        <h3>Мышь HyperClick</h3>
+        <p>16000 DPI, RGB, USB-C</p>
+        <button>Купить</button>
+      </div>
+
+      <div class="product">
+        <img src="https://via.placeholder.com/250x180" alt="Наушники" />
+        <h3>Наушники PulseSound</h3>
+        <p>Шумоподавление, Bluetooth 5.3</p>
+        <button>Купить</button>
+      </div>
+
+      <div class="product">
+        <img src="https://via.placeholder.com/250x180" alt="Видеокарта" />
+        <h3>Видеокарта RTX 4090</h3>
+        <p>24 ГБ GDDR6X, HDMI 2.1</p>
+        <button>Купить</button>
+      </div> {% endcomment %}
+    </div>
+  </section>
+{% endblock body %}

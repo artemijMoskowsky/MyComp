@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <title>MyComp - Кошик</title>
+    <link rel="stylesheet" href={% static "css/basket.css" %} />
+    {% comment %} <script defer src={% static "js/basket.js" %}></script> {% endcomment %}
+    <meta name="selected" content="basket">
+    <script src={% static "js/basket.js" %}></script>
+    {% comment %} <script defer src={% static "js/basket.js" %}></script> {% endcomment %}
+{% endblock head %}
+
+
+{% block body %}
+    <div class="content-placer">
+        <section class="products">
+            {% for basket in baskets %}
+                <div class="product">
+                    <div class="product-image">
+                        <img src={{ basket.product.images.first.image.url }} alt={{ basket.product.name }}>
+                    </div>
+                    <div class="pr-info">
+                        <h2>{{ basket.product.name }}</h2>
+                        <h2>{{ basket.product.price }}$</h2>
+                        {% if basket.product.count > 0 %}
+                            <h3>В наявності {{ basket.product.count }} шт.</h4>
+                        {% else %}
+                            <h3>Немає в наявності</h4>
+                        {% endif %}
+                        <div class="pr-control">
+                            <button class="delete-button" onclick="deleteProduct(this, {{ basket.id }})" ><img src={% static "img/delete-alt.png" %} alt="delete">Видалити</button>
+                            <div>
+                                <button onclick="changeCountElement(this, {{ basket.product.id }}, -1)" class="change-count subtract">-</button>
+                                <p class="count">{{ basket.count }}</p>
+                                <button onclick="changeCountElement(this, {{ basket.product.id }}, 1)" class="change-count add">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        addProduct({{ basket.product.id }}, {{ basket.count }}, {{ basket.product.count }}, {{ basket.product.price }}, {{ basket.id }});
+                    </script>
+                </div>
+            {% endfor %}
+        </section>
+        <section class="placing-order">
+            <div class="order">
+                <button onclick="placeOrder()" class="submit-order">Перейти до оформлення</button>
+                <div class="total-price">
+                    <p class="orders-count">{{ orders_count }} товари на суму</p>
+                    <p class="total-price-p">{{ orders_price }}₴</p>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock body %}

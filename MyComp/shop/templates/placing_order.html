@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <title>MyComp - Оформлення покупки</title>
+    <link rel="stylesheet" href={% static "css/placing_order.css" %}>
+    {% comment %} <script defer src={% static "js/catalog.js" %}></script> {% endcomment %}
+    <meta name="selected" content="basket">
+{% endblock head %}
+
+{% block body %}
+    <div class="content-placer">
+        <form class="order-form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="products">
+                {% for basket in baskets %}
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src={{ basket.product.images.first.image.url }} alt={{ basket.product.name }}>
+                        </div>
+                        <h4 class="product-name">{{ basket.product.name }}</h4>
+                        <h5>Кількість: {{ basket.count }}</h5>
+                    </div>
+                {% endfor %}
+            </div>
+            <h3>Ітогова сума: {{ orders_price }}₴</h3>
+            <button class="submit-button" type="submit">Підтвердити</button>
+        </form>
+    </div>
+{% endblock body %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <title>Home page</title>
+    <link rel="stylesheet" href={% static "css/contacts.css" %}>
+    <meta name="selected" content="contacts">
+    {% comment %} <script defer src={% static "js/index.js" %}></script> {% endcomment %}
+{% endblock head %}
+
+{% block body %}
+    <div class="content">
+        <div class="info">
+            <h3>Контакти</h3>
+            <p>Багатоканальний телефон гарячої лінії, щодня з 08:00 до 21:00<br>
+                <span class="red-text">0-XXX-XXX-XXX</span><br>
+                <span class="red-text">0-XXX-XXX-XXX</span><br>
+                Дзвінки з мобільних і стаціонарних телефонів в межах України безкоштовні<br>
+                E-mail: <span class="red-text">example.com</span></p>
+        </div>
+    </div>
+{% endblock body %}

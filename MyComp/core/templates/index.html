@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <title>MyComp - Домашня сторінка</title>
+    <link rel="stylesheet" href={% static "css/index.css" %}>
+    <meta name="selected" content="main">
+    <script defer src={% static "js/index.js" %}></script>
+{% endblock head %}
+
+{% block body %}
+    <div class="content">
+        <h1>Вітаємо у My<span>Comp</span></h1>
+        <p>Ваша техніка - ваші правила. Від ноутбуків до переферії</p>
+        <a class="shop-button" href={% url "catalog" %}>Перейти до покупок</a>
+    </div>
+
+    <div class="popular-products">
+        <h2>Популярні товари</h2>
+        <section class="product-grid">
+            {% for product in products %}
+                <div class="product" value={% url "product" product.id %}>
+                    <img src={{ product.images.first.image.url }} alt="Ноутбук" />
+                    <h3>{{ product.name }}</h3>
+                    <p>
+                        {{ product.price }} грн.
+                        {% comment %} {% for key, value in product.attributes.items %}
+                            {{ value }}
+                        {% endfor %} {% endcomment %}
+                    </p>
+                    <button>Купити</button>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock body %}
