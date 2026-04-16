@@ -9,7 +9,7 @@
 {% endblock head %}
 
 {% block body %}
-    <div class="content-placer">
+    <main class="content-placer">
         <form class="order-form" method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -27,5 +27,5 @@
             <h3>Ітогова сума: {{ orders_price }}₴</h3>
             <button class="submit-button" type="submit">Підтвердити</button>
         </form>
-    </div>
+    </main>
 {% endblock body %}

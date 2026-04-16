@@ -88,6 +88,7 @@ def add_to_basket(request: HttpRequest, id:int):
 
     return HttpResponse("success", status=200)
 
+@login_required
 @csrf_exempt
 def render_basket(request: HttpRequest):
 
